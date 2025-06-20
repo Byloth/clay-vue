@@ -11,8 +11,10 @@
     --clay-dark-color: #{variables.$dark-color};
 
     --clay-primary-color: #{variables.$primary-color};
-
+    --clay-input-primary-color-light : #{variables.$primary-color-input-light};
+    --clay-input-primary-color-dark : #{variables.$primary-color-input-dark};
     --clay-ease-duration: #{variables.$ease-duration};
+    --clay-ease-duration-dark-theme-input: #{variables.$ease-duration-dark-theme-input};
     --clay-ease-function: #{variables.$ease-function};
 
     --clay-text-color: var(--black);
