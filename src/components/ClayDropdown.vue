@@ -1,9 +1,10 @@
 <script lang="ts" setup>
     import { ref, computed } from "vue";
+    import type { PropType } from "vue";
 
     const props = defineProps({
         items: {
-            type: Array as () => { label: string; value: string }[],
+            type: Array as PropType<{ label: string; value: string; }[]>,
             default: () => []
         },
         placeholder: {
