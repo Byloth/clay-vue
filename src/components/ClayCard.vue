@@ -52,7 +52,7 @@
         background-blend-mode: overlay;
         border-radius: var(--clay-card-roundness);
 
-        @include mixins.clay-shadow-elevation($color: var(--clay-card-color-shadow));
+        @include mixins.shadow-elevation($color: var(--clay-card-color-shadow));
 
         padding: var(--clay-card-spacing);
         perspective: 0;
@@ -65,7 +65,7 @@
             border-radius: var(--clay-card-roundness);
             bottom: 0;
 
-            @include mixins.clay-shadow-inset($color: var(--clay-primary-color));
+            @include mixins.shadow-inset($color: var(--clay-primary-color));
 
             content: "";
             left: 0;
@@ -80,15 +80,15 @@
 
         &.clay-card--elevation-none
         {
-            @include mixins.clay-shadow-elevation($color: var(--clay-card-color-shadow), $intensity: 0.125);
+            @include mixins.shadow-elevation($color: var(--clay-card-color-shadow), $intensity: 0.125);
         }
         &.clay-card--elevation-low
         {
-            @include mixins.clay-shadow-elevation($color: var(--clay-card-color-shadow), $intensity: 0.5);
+            @include mixins.shadow-elevation($color: var(--clay-card-color-shadow), $intensity: 0.5);
         }
         &.clay-card--elevation-high
         {
-            @include mixins.clay-shadow-elevation($color: var(--clay-card-color-shadow), $intensity: 2);
+            @include mixins.shadow-elevation($color: var(--clay-card-color-shadow), $intensity: 2);
         }
 
         &.clay-card--glass
@@ -103,7 +103,7 @@
 
             &::before
             {
-                @include mixins.clay-shadow-inset($intensity: 0.5, $color: var(--clay-card-color-shadow));
+                @include mixins.shadow-inset($intensity: 0.5, $color: var(--clay-card-color-shadow));
             }
         }
     }
@@ -120,7 +120,7 @@
         {
             &::before
             {
-                @include mixins.clay-shadow-inset();
+                @include mixins.shadow-inset();
             }
 
             &.clay-card--glass

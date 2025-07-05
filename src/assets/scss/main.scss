@@ -15,17 +15,17 @@
     --clay-ease-duration: #{variables.$ease-duration};
     --clay-ease-function: #{variables.$ease-function};
 
-    --clay-text-color: var(--black);
-
     @media (prefers-color-scheme: light)
     {
         --clay-color-background: var(--clay-light-color);
         --clay-text-color: var(--black);
+        --clay-subtext-color: oklch(from var(--clay-text-color) calc(l + 0.5) c h);
     }
     @media (prefers-color-scheme: dark)
     {
         --clay-color-background: var(--clay-dark-color);
         --clay-text-color: var(--white);
+        --clay-subtext-color: oklch(from var(--clay-text-color) calc(l - 0.2) c h);
     }
 }
 

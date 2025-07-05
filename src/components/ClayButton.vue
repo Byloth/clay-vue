@@ -80,7 +80,6 @@
     :root
     {
         --clay-button-color-background: var(--clay-primary-color);
-        --clay-button-color-background: var(--clay-primary-color);
         --clay-button-color-outline: oklch(from var(--clay-button-color-background) l c calc(h + 180));
         --clay-button-color-shadow: oklch(from var(--clay-button-color-background) calc(l - 0.25) c h);
 
@@ -105,7 +104,7 @@
         cursor: pointer;
         font-family: inherit;
         font-size: 1em;
-        font-weight: bold;
+        font-weight: 700;
         outline: none;
         padding: var(--clay-button-spacing);
         perspective: 0;
@@ -120,7 +119,7 @@
             border-radius: var(--clay-button-roundness);
             bottom: 0;
 
-            @include mixins.clay-shadow-inset($intensity: 0.5);
+            @include mixins.shadow-inset($intensity: 0.5);
 
             content: "";
             left: 0;
