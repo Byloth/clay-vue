@@ -46,4 +46,16 @@ export const Primary: StoryObj<StoryArgs> = {
     })
 };
 
+export const Glass: StoryObj<StoryArgs> = {
+    render: (args: StoryArgs) => ({
+        components: { ClayBubble },
+        setup: () => ({ args }),
+        template: `
+            <ClayBubble glass :size="args.size">
+                <span>12</span>
+            </ClayBubble>
+        `
+    })
+};
+
 export default meta;
