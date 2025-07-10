@@ -7,7 +7,8 @@ interface StoryArgs
 {
     label: string;
     size: "small" | "default" | "large";
-    click: () => void;
+
+    onClick: () => void;
 }
 
 const meta: Meta<StoryArgs> = {
@@ -49,21 +50,19 @@ const meta: Meta<StoryArgs> = {
     args: {
         label: "Click me!",
         size: "default",
-        click: fn()
+
+        onClick: fn()
     }
 };
 
 export const Primary: StoryObj<StoryArgs> = {
-    // args: {
-    //     label: "Click me!",
-    //     size: "default"
-    // },
     render: (args: StoryArgs) => ({
         components: { ClayButton },
         setup: () => ({ args }),
         template: `
             <ClayButton :small="args.size === 'small'"
-                        :large="args.size === 'large'">
+                        :large="args.size === 'large'"
+                        @click="args.onClick">
                 {{ args.label }}
             </ClayButton>
         `

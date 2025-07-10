@@ -3,6 +3,7 @@ import ClayBubble from "./ClayBubble.vue";
 
 interface StoryArgs
 {
+    label: string;
     size: "small" | "default" | "large";
 }
 
@@ -11,6 +12,17 @@ const meta: Meta<StoryArgs> = {
     component: ClayBubble,
     tags: ["autodocs"],
     argTypes: {
+        label: {
+            name: "Text",
+            type: { name: "string", required: true },
+            description: "The text to display inside the bubble.",
+            table: {
+                category: "Component's",
+                defaultValue: { summary: "42" },
+                type: { summary: "string" }
+            },
+            control: "text"
+        },
         size: {
             name: "Size",
             type: { name: "string", required: false },
@@ -31,7 +43,10 @@ const meta: Meta<StoryArgs> = {
             options: ["small", "default", "large"]
         }
     },
-    args: { size: "default" }
+    args: {
+        label: "42",
+        size: "default"
+    }
 };
 
 export const Primary: StoryObj<StoryArgs> = {
@@ -39,20 +54,9 @@ export const Primary: StoryObj<StoryArgs> = {
         components: { ClayBubble },
         setup: () => ({ args }),
         template: `
-            <ClayBubble :size="args.size">
-                <span>12</span>
-            </ClayBubble>
-        `
-    })
-};
-
-export const Glass: StoryObj<StoryArgs> = {
-    render: (args: StoryArgs) => ({
-        components: { ClayBubble },
-        setup: () => ({ args }),
-        template: `
-            <ClayBubble glass :size="args.size">
-                <span>12</span>
+            <ClayBubble :small="args.size === 'small'"
+                        :large="args.size === 'large'">
+                <span>{{ args.label }}</span>
             </ClayBubble>
         `
     })
