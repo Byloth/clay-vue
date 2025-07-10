@@ -3,7 +3,24 @@ import type { Preview } from "@storybook/vue3-vite";
 import "@/assets/scss/main.scss";
 import type { ColorScheme } from "@/types";
 
-const _setColorScheme = (colorScheme: ColorScheme, body: HTMLBodyElement) => { body.style.colorScheme = colorScheme; };
+const _setColorScheme = (colorScheme: ColorScheme, element: Element) =>
+{
+    if (colorScheme === "light")
+    {
+        element.removeAttribute("dark");
+        element.setAttribute("light", "");
+    }
+    else if (colorScheme === "dark")
+    {
+        element.removeAttribute("light");
+        element.setAttribute("dark", "");
+    }
+    else
+    {
+        element.removeAttribute("light");
+        element.removeAttribute("dark");
+    }
+};
 
 const preview: Preview = {
     decorators: [(Story, context) =>
@@ -11,9 +28,7 @@ const preview: Preview = {
         const { theme } = context.globals;
 
         const body = window.parent.document.querySelector<HTMLBodyElement>("body");
-        if (!(body)) { return Story(); }
-
-        _setColorScheme(theme, body);
+        if (body) { _setColorScheme(theme, body); }
 
         return Story();
     }],
