@@ -51,7 +51,8 @@
     "build:core": "vite build && pnpm build:types",
     "build:storybook": "storybook build --output-dir .storybook/dist",
     "build:types": "vue-tsc --build --force --emitDeclarationOnly",
-    "preview": "vite preview",
+    "preview:core": "vite preview",
+    "preview:storybook": "vite preview .storybook",
     "lint": "eslint .",
     "typecheck": "vue-tsc --build --force --noEmit",
     "prepare": "husky"
