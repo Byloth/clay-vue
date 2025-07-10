@@ -1,28 +1,25 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import { fn } from "storybook/test";
 
-import ClayButton from "./ClayButton.vue";
+import ClayInput from "./ClayInput.vue";
 
 interface StoryArgs
 {
-    label: string;
+    placeholder: string;
     size: "small" | "default" | "large";
-
-    onClick: () => void;
 }
 
 const meta: Meta<StoryArgs> = {
-    title: "ClayButton",
-    component: ClayButton,
+    title: "Inputs/ClayInput",
+    component: ClayInput,
     tags: ["autodocs"],
     argTypes: {
-        label: {
-            name: "Text",
+        placeholder: {
+            name: "Placeholder",
             type: { name: "string", required: true },
-            description: "The text displayed on the button.",
+            description: "The placeholder text for the input.",
             table: {
                 category: "Component's",
-                defaultValue: { summary: "Click me!" },
+                defaultValue: { summary: "Enter text here..." },
                 type: { summary: "string" }
             },
             control: "text"
@@ -30,7 +27,7 @@ const meta: Meta<StoryArgs> = {
         size: {
             name: "Size",
             type: { name: "string", required: false },
-            description: "The size of the button.",
+            description: "The size of the input field.",
             table: {
                 category: "Component's",
                 defaultValue: { summary: "default" },
@@ -48,24 +45,19 @@ const meta: Meta<StoryArgs> = {
         }
     },
     args: {
-        label: "Click me!",
-        size: "default",
-
-        onClick: fn()
+        placeholder: "Enter text here...",
+        size: "default"
     }
 };
 
-export const Primary: StoryObj<StoryArgs> = {
-    render: (args: StoryArgs) => ({
-        components: { ClayButton },
+export const Default: StoryObj<StoryArgs> = {
+    render: (args) => ({
+        components: { ClayInput },
         setup: () => ({ args }),
-        template: `
-            <ClayButton :small="args.size === 'small'"
-                        :large="args.size === 'large'"
-                        @click="args.onClick">
-                {{ args.label }}
-            </ClayButton>
-        `
+        template: `<ClayInput id="storybook--story__clay-input"
+                              :placeholder="args.placeholder"
+                              :small="args.size === 'small'"
+                              :large="args.size === 'large'" />`
     })
 };
 

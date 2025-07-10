@@ -141,7 +141,7 @@
         }
         &:focus-visible
         {
-            box-shadow: 0 0 0 0.15em rgba(from var(--clay-button-color-outline) r g b / 1),
+            box-shadow: 0 0 0 0.15em var(--clay-button-color-outline),
                         0 0.25em 0.25em 0 rgba(from var(--clay-button-color-shadow) r g b / 0.333);
 
             transform: translateY(-0.0625em) scale(1.1);
@@ -204,7 +204,7 @@
             }
             &:focus-visible
             {
-                box-shadow: 0 0 0 0.15em rgba(from var(--clay-button-color-outline) r g b / 1),
+                box-shadow: 0 0 0 0.15em var(--clay-button-color-outline),
                             0 0 0.5em 0 rgba(from var(--clay-button-color-shadow) r g b / 0.25),
                             0 0.25em 0.5em 0 rgba(from var(--clay-button-color-shadow) r g b / 0.25);
             }

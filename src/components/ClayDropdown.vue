@@ -101,7 +101,7 @@
         --clay-dropdown-spacing: var(--clay-dropdown-spacing-x) var(--clay-dropdown-spacing-y);
         --clay-dropdown-roundness: var(--clay-dropdown-spacing-x);
         --clay-dropdown-scale: 1;
-        --clay-dropdown-shadow: 0px 2px 5.1px 0px rgba(0, 0, 0, 0.25) inset, 0px 2px 4px 0px rgba(142, 138, 138, 0.75);
+        --clay-dropdown-shadow: inset 0 2px 5.1px 0 rgba(0, 0, 0, 0.25), 0 2px 4px 0 rgba(142, 138, 138, 0.75);
         --clay-dropdown-font-size: 16px;
         --clay-dropdown-min-width: 120px;
     }
@@ -136,20 +136,20 @@
         &:focus
         {
             --clay-dropdown-scale: 0.95;
-            --clay-dropdown-shadow: 0px 2px 5.1px 0px rgba(0, 0, 0, 0.35) inset, 0px 2px 4px 0px rgba(142, 138, 138, 0.85);
+            --clay-dropdown-shadow: inset 0 2px 5.1px 0 rgba(0, 0, 0, 0.35), 0 2px 4px 0 rgba(142, 138, 138, 0.85);
             outline: none;
         }
 
         &:hover
         {
             --clay-dropdown-scale: 1.05;
-            --clay-dropdown-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.3) inset, 0px 2px 4px 0px rgba(142, 138, 138, 0.8);
+            --clay-dropdown-shadow: inset 0 2px 6px 0 rgba(0, 0, 0, 0.3), 0 2px 4px 0 rgba(142, 138, 138, 0.8);
         }
 
         &:active
         {
             --clay-dropdown-scale: 1;
-            --clay-dropdown-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.4) inset, 0px 1px 2px 0px rgba(142, 138, 138, 0.9);
+            --clay-dropdown-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(142, 138, 138, 0.9);
         }
 
         &__text
@@ -188,7 +188,7 @@
             z-index: 1000;
             background: var(--white);
             border-radius: var(--clay-dropdown-roundness);
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             margin: 0;
             padding: 0;
             list-style: none;
@@ -278,31 +278,32 @@
         {
             --clay-dropdown-color-background: #2c2e30;
             --clay-dropdown-color-background-hover: rgba(42, 42, 42, 0.9);
-            --clay-dropdown-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.6) inset, 0px 3px 6px 0px rgba(0, 0, 0, 0.4);
+            --clay-dropdown-shadow: inset 0 3px 8px 0 rgba(0, 0, 0, 0.6), 0 3px 6px 0 rgba(0, 0, 0, 0.4);
         }
 
         .clay-dropdown
         {
             &:focus
             {
-                --clay-dropdown-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.7) inset, 0px 4px 8px 0px rgba(0, 0, 0, 0.5);
+                --clay-dropdown-shadow: inset 0 4px 10px 0 rgba(0, 0, 0, 0.7), 0 4px 8px 0 rgba(0, 0, 0, 0.5);
             }
 
             &:hover
             {
-                --clay-dropdown-shadow: 0px 3px 9px 0px rgba(0, 0, 0, 0.65) inset, 0px 3px 7px 0px rgba(0, 0, 0, 0.45);
+                --clay-dropdown-shadow: inset 0 3px 9px 0 rgba(0, 0, 0, 0.65), 0 3px 7px 0 rgba(0, 0, 0, 0.45);
             }
 
             &:active
             {
-                --clay-dropdown-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.8) inset, 0px 2px 4px 0px rgba(0, 0, 0, 0.6);
+                --clay-dropdown-shadow: inset 0 2px 6px 0 rgba(0, 0, 0, 0.8), 0 2px 4px 0 rgba(0, 0, 0, 0.6);
             }
 
             &__list
             {
                 background-color: #1a1a1a;
-                box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.4),
-                inset 0px 2px 6px 0px rgba(0, 0, 0, 0.3), inset 0px -2px 6px 0px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4),
+                            inset 0 2px 6px 0 rgba(0, 0, 0, 0.3),
+                            inset 0 -2px 6px 0 rgba(0, 0, 0, 0.2);
             }
         }
 

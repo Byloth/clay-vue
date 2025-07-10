@@ -19,17 +19,17 @@ const scheme = computed({
     get: () => _scheme.value,
     set: (value: ColorScheme) =>
     {
-        const _body = document.querySelector<HTMLBodyElement>("body")!;
+        const _html = document.querySelector<HTMLHtmlElement>("html")!;
 
         if (value === "dark")
         {
-            _body.removeAttribute("light");
-            _body.setAttribute("dark", "");
+            _html.removeAttribute("light");
+            _html.setAttribute("dark", "");
         }
         else
         {
-            _body.removeAttribute("dark");
-            _body.setAttribute("light", "");
+            _html.removeAttribute("dark");
+            _html.setAttribute("light", "");
         }
     }
 });
