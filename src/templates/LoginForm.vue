@@ -5,16 +5,23 @@
 </script>
 
 <template>
-    <ClayCard>
+    <ClayCard class="claycard">
+        <h1 class="title">
+            Login Form
+        </h1>
         <form class="login-form" @submit.prevent>
+            <label class="label" for="username">Please type your email address</label>
             <ClayInput id="username"
-                       placeholder="Type your email address..."
+                       class="input"
+                       placeholder="Type here your email address..."
                        type="email" />
+            <label class="label" for="password">Please type your password</label>
             <ClayInput id="password"
-                       placeholder="Type your password..."
+                       class="input"
+                       placeholder="Type here your password..."
                        type="password" />
             <hr />
-            <ClayButton type="submit">
+            <ClayButton class="claybutton" type="submit">
                 Login
             </ClayButton>
         </form>
@@ -22,15 +29,40 @@
 </template>
 
 <style lang="scss">
+    .loginContainer
+    {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .label
+    {
+        float:left;
+    }
     .login-form
     {
         display: flex;
         flex-direction: column;
         gap: 1em;
-
+        justify-content:center;
+        align-items: center;
         hr
         {
             width: 100%;
         }
+    }
+    .claybutton
+    {
+        width:200px;
+        justify-content:center;
+    }
+    .claycard
+    {
+        width:400px;
+    }
+    .input
+    {
+        width:200px;
     }
 </style>
