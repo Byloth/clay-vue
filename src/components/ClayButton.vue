@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-    import { computed, onMounted, ref } from "vue";
+    import { computed, onMounted, onUnmounted, ref } from "vue";
     import type { Timeout } from "@/types";
 
     const props = defineProps({
@@ -47,7 +47,6 @@
         {
             active.value = false;
             _timeoutId = null;
-
         }, (_easeDuration - elapsed));
     };
 
@@ -62,6 +61,10 @@
         _easeDuration = parseFloat(propertyValue);
 
         window.addEventListener("mouseup", onMouseUp);
+    });
+    onUnmounted((): void =>
+    {
+        window.removeEventListener("mouseup", onMouseUp);
     });
 </script>
 
