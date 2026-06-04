@@ -13,8 +13,8 @@ importers:
         version: 3.5.35(typescript@6.0.3)
     devDependencies:
       '@byloth/eslint-config-nuxt':
-        specifier: ^4.0.1
-        version: 4.0.1(@stylistic/eslint-plugin@5.10.0(eslint@10.4.1))(@typescript-eslint/parser@8.60.1(eslint@10.4.1)(typescript@6.0.3))(eslint@10.4.1)(typescript@6.0.3)
+        specifier: ^4.0.2
+        version: 4.0.2(@stylistic/eslint-plugin@5.10.0(eslint@10.4.1))(@typescript-eslint/parser@8.60.1(eslint@10.4.1)(typescript@6.0.3))(eslint@10.4.1)(typescript@6.0.3)
       '@chromatic-com/storybook':
         specifier: ^5.2.1
         version: 5.2.1(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))
@@ -34,7 +34,7 @@ importers:
         specifier: ^10.4.2
         version: 10.4.2(esbuild@0.27.7)(storybook@10.4.2(@testing-library/dom@10.4.0)(@types/react@18.3.11)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(vite@8.0.16(@types/node@24.12.4)(esbuild@0.27.7)(sass@1.100.0))(vue@3.5.35(typescript@6.0.3))
       '@types/node':
-        specifier: ^24.12.2
+        specifier: ^24.12.4
         version: 24.12.4
       '@vitejs/plugin-vue':
         specifier: ^6.0.7
@@ -97,17 +97,17 @@ packages:
     resolution: {integrity: sha512-4zBIxpPzowiZpusoFkyGVwakdRJUyuH5PxQ/PrqghfdFWWasvnCdPfQXHrenDai+gyLARulZjZowCOj6fjT4pA==}
     engines: {node: '>=6.9.0'}
 
-  '@byloth/eslint-config-nuxt@4.0.1':
-    resolution: {integrity: sha512-lrbCG+Wqxfs/NxD6RbOttHO49sMW5VCovOHYpKQ7qtygqSpVpBUPYF1KbmLcoawyutR5Ap9cxyv4xI7OrwTRtg==}
+  '@byloth/eslint-config-nuxt@4.0.2':
+    resolution: {integrity: sha512-Maj9NdxXq0+O+K9EhWg2nt7O53fuSdEuJ/GS1C0JyOaj+dd9UP9GYmpIq57WZ6xz3SWSQqsCT305OyhO4M5c+g==}
 
-  '@byloth/eslint-config-typescript@4.0.1':
-    resolution: {integrity: sha512-LBxjal26IFSawzyb+bZ8aqtpuLqfVqAQfqdfR1Or3MBCqlfT1kFnIAfkimymLKehw1mrJ1Rxg00iM7qDdkaHtw==}
+  '@byloth/eslint-config-typescript@4.0.2':
+    resolution: {integrity: sha512-mRBrjNSwYAa/TMOj/btvjyP+vgHHopX7p1XLff9sH4urVb+xNbXBlN1DJPlcls4rO+OwO19RfUapmN+SWjaH2w==}
 
-  '@byloth/eslint-config-vue@4.0.1':
-    resolution: {integrity: sha512-RHAZJKL4Dj3Aaa6TdYeAjs2VdJh+MEvS7vtD5TCOLc9Q2PS15u6LGOihVyOCr0iiVh7Zxs6u020rcUPCzwwAiQ==}
+  '@byloth/eslint-config-vue@4.0.2':
+    resolution: {integrity: sha512-ZQYxjSCywfP2Fos6ipM6e5k6oEXu3jj+feeHqIxzxpdwyM4jFts3y8DaTA6cS3tQm/QBox7Tuk6j8B4sGjZ5+g==}
 
-  '@byloth/eslint-config@4.0.1':
-    resolution: {integrity: sha512-e08XCh/JcCzerI423NRLwYBLgIJ+NloSOEwZGOMFnEE0trCy5JU+tv6C2xh9DWj9epc1EI02zl3gkXlaEw+XRw==}
+  '@byloth/eslint-config@4.0.2':
+    resolution: {integrity: sha512-2AwZrmvxzQBrS03Qk7xmRsxW/KTW/I1jSfdhlKLnfyO7yGnYcUtejGLSjikINv6kPZKHVzuVrSw4PlrDcqMQXQ==}
 
   '@chromatic-com/storybook@5.2.1':
     resolution: {integrity: sha512-z6I7NJk/0VngA64y5TNYaB4Hc2X8+90n4op6lBt9PvWk5TmIlFLDqdX33rlrwbNRkkYijVgA/wO04rVYXi5Mlg==}
@@ -2698,10 +2698,10 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@byloth/eslint-config-nuxt@4.0.1(@stylistic/eslint-plugin@5.10.0(eslint@10.4.1))(@typescript-eslint/parser@8.60.1(eslint@10.4.1)(typescript@6.0.3))(eslint@10.4.1)(typescript@6.0.3)':
+  '@byloth/eslint-config-nuxt@4.0.2(@stylistic/eslint-plugin@5.10.0(eslint@10.4.1))(@typescript-eslint/parser@8.60.1(eslint@10.4.1)(typescript@6.0.3))(eslint@10.4.1)(typescript@6.0.3)':
     dependencies:
-      '@byloth/eslint-config-typescript': 4.0.1(eslint@10.4.1)(typescript@6.0.3)
-      '@byloth/eslint-config-vue': 4.0.1(@stylistic/eslint-plugin@5.10.0(eslint@10.4.1))(@typescript-eslint/parser@8.60.1(eslint@10.4.1)(typescript@6.0.3))(eslint@10.4.1)
+      '@byloth/eslint-config-typescript': 4.0.2(eslint@10.4.1)(typescript@6.0.3)
+      '@byloth/eslint-config-vue': 4.0.2(@stylistic/eslint-plugin@5.10.0(eslint@10.4.1))(@typescript-eslint/parser@8.60.1(eslint@10.4.1)(typescript@6.0.3))(eslint@10.4.1)
     transitivePeerDependencies:
       - '@stylistic/eslint-plugin'
       - '@typescript-eslint/parser'
@@ -2712,9 +2712,9 @@ snapshots:
       - supports-color
       - typescript
 
-  '@byloth/eslint-config-typescript@4.0.1(eslint@10.4.1)(typescript@6.0.3)':
+  '@byloth/eslint-config-typescript@4.0.2(eslint@10.4.1)(typescript@6.0.3)':
     dependencies:
-      '@byloth/eslint-config': 4.0.1
+      '@byloth/eslint-config': 4.0.2
       '@typescript-eslint/eslint-plugin': 8.60.1(@typescript-eslint/parser@8.60.1(eslint@10.4.1)(typescript@6.0.3))(eslint@10.4.1)(typescript@6.0.3)
       '@typescript-eslint/parser': 8.60.1(eslint@10.4.1)(typescript@6.0.3)
       eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.60.1(eslint@10.4.1)(typescript@6.0.3))(eslint@10.4.1)
@@ -2726,9 +2726,9 @@ snapshots:
       - supports-color
       - typescript
 
-  '@byloth/eslint-config-vue@4.0.1(@stylistic/eslint-plugin@5.10.0(eslint@10.4.1))(@typescript-eslint/parser@8.60.1(eslint@10.4.1)(typescript@6.0.3))(eslint@10.4.1)':
+  '@byloth/eslint-config-vue@4.0.2(@stylistic/eslint-plugin@5.10.0(eslint@10.4.1))(@typescript-eslint/parser@8.60.1(eslint@10.4.1)(typescript@6.0.3))(eslint@10.4.1)':
     dependencies:
-      '@byloth/eslint-config': 4.0.1
+      '@byloth/eslint-config': 4.0.2
       eslint-plugin-vue: 10.9.2(@stylistic/eslint-plugin@5.10.0(eslint@10.4.1))(@typescript-eslint/parser@8.60.1(eslint@10.4.1)(typescript@6.0.3))(eslint@10.4.1)(vue-eslint-parser@10.4.1(eslint@10.4.1))
       vue-eslint-parser: 10.4.1(eslint@10.4.1)
     transitivePeerDependencies:
@@ -2738,7 +2738,7 @@ snapshots:
       - jiti
       - supports-color
 
-  '@byloth/eslint-config@4.0.1':
+  '@byloth/eslint-config@4.0.2':
     dependencies:
       '@eslint/js': 10.0.1(eslint@10.4.1)
       '@stylistic/eslint-plugin': 5.10.0(eslint@10.4.1)
