@@ -18,7 +18,6 @@
     "allowImportingTsExtensions": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "..",
     "outDir": "../types",
     "rootDir": ".."
   }

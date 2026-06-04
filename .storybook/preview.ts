@@ -2,10 +2,15 @@ import type { Preview } from "@storybook/vue3-vite";
 
 import "@/assets/scss/main.scss";
 
+const _prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+const _defaultTheme = _prefersDark ? "dark" : "light";
+
 const preview: Preview = {
-    decorators: [(Story, context) =>
+    initialGlobals: { theme: _defaultTheme },
+
+    decorators: [(Story, { globals }) =>
     {
-        const { theme } = context.globals;
+        const { theme } = globals;
 
         const html = window.document.querySelector<HTMLElement>("html");
         if (!(html)) { return Story(); }
@@ -24,13 +29,12 @@ const preview: Preview = {
         theme: {
             name: "Theme",
             description: "The theme used to display the whole UI",
-            defaultValue: "light",
             toolbar: {
+                title: "Theme",
                 items: [
-                    { icon: "sun", value: "light", title: "Light", right: "(default)" },
-                    { icon: "moon", value: "dark", title: "Dark" }
+                    { icon: "sun", value: "light", title: "Light", right: _prefersDark ? undefined : "(default)" },
+                    { icon: "moon", value: "dark", title: "Dark", right: _prefersDark ? "(default)" : undefined }
                 ],
-                showName: true,
                 dynamicTitle: true
             }
         }

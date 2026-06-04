@@ -47,6 +47,7 @@
         {
             active.value = false;
             _timeoutId = null;
+
         }, (_easeDuration - elapsed));
     };
 
