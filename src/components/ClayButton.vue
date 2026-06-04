@@ -78,6 +78,7 @@
 </template>
 
 <style lang="scss">
+    @use "@/assets/scss/functions";
     @use "@/assets/scss/mixins";
 
     :root
@@ -100,7 +101,7 @@
         background-blend-mode: overlay;
         border: none;
         border-radius: var(--clay-button-roundness);
-        box-shadow: 0 0 0 0 rgba(from var(--clay-button-color-outline) r g b / 0),
+        box-shadow: functions.clay-outline($color: var(--clay-button-color-outline), $opacity: 0),
                     0 0.1em 0.2em -0.1em rgba(from var(--clay-button-color-shadow) r g b / 0.75);
 
         color: var(--white);
@@ -122,7 +123,7 @@
             border-radius: var(--clay-button-roundness);
             bottom: 0;
 
-            @include mixins.clay-shadow-inset($intensity: 0.5);
+            @include mixins.clay-shadow-puff($intensity: 0.5);
 
             content: "";
             left: 0;
@@ -137,14 +138,14 @@
 
         &:hover
         {
-            box-shadow: 0 0 0 0 rgba(from var(--clay-button-color-outline) r g b / 0),
+            box-shadow: functions.clay-outline($color: var(--clay-button-color-outline), $opacity: 0),
                         0 0.25em 0.25em 0 rgba(from var(--clay-button-color-shadow) r g b / 0.333);
 
             transform: translateY(-0.0625em) scale(1.1);
         }
         &:focus-visible
         {
-            box-shadow: 0 0 0 0.15em var(--clay-button-color-outline),
+            box-shadow: functions.clay-outline($color: var(--clay-button-color-outline), $width: 0.15em),
                         0 0.25em 0.25em 0 rgba(from var(--clay-button-color-shadow) r g b / 0.333);
 
             transform: translateY(-0.0625em) scale(1.1);
@@ -152,7 +153,7 @@
         &:active,
         &.clay-button--active
         {
-            box-shadow: 0 0 0 0 rgba(from var(--clay-button-color-outline) r g b / 0),
+            box-shadow: functions.clay-outline($color: var(--clay-button-color-outline), $opacity: 0),
                         0 0 0.125em 0 rgba(from var(--clay-button-color-shadow) r g b / 0.5),
                         0 -0.25em 0.25em 0 rgba(from var(--clay-button-color-shadow) r g b / 0.333);
 
@@ -188,7 +189,7 @@
 
         .clay-button
         {
-            box-shadow: 0 0 0 0 rgba(from var(--clay-button-color-outline) r g b / 0),
+            box-shadow: functions.clay-outline($color: var(--clay-button-color-outline), $opacity: 0),
                         0 0.1em 0.2em -0.1em rgba(from var(--clay-button-color-shadow) r g b / 0.5);
             &:hover,
             &:focus-visible,
@@ -201,20 +202,20 @@
 
             &:hover
             {
-                box-shadow: 0 0 0 0 rgba(from var(--clay-button-color-outline) r g b / 0),
+                box-shadow: functions.clay-outline($color: var(--clay-button-color-outline), $opacity: 0),
                             0 0 0.5em 0 rgba(from var(--clay-button-color-shadow) r g b / 0.25),
                             0 0.25em 0.5em 0 rgba(from var(--clay-button-color-shadow) r g b / 0.25);
             }
             &:focus-visible
             {
-                box-shadow: 0 0 0 0.15em var(--clay-button-color-outline),
+                box-shadow: functions.clay-outline($color: var(--clay-button-color-outline), $width: 0.15em),
                             0 0 0.5em 0 rgba(from var(--clay-button-color-shadow) r g b / 0.25),
                             0 0.25em 0.5em 0 rgba(from var(--clay-button-color-shadow) r g b / 0.25);
             }
             &:active,
             &.clay-button--active
             {
-                box-shadow: 0 0 0 0 rgba(from var(--clay-button-color-outline) r g b / 0),
+                box-shadow: functions.clay-outline($color: var(--clay-button-color-outline), $opacity: 0),
                             0 0 0.25em 0 rgba(from var(--clay-button-color-shadow) r g b / 0.25),
                             0 -0.25em 0.25em 0 rgba(from var(--clay-button-color-shadow) r g b / 0.25);
             }

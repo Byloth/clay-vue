@@ -102,7 +102,7 @@ src/
   templates/                  # compositions/recipes (e.g. LoginForm) — demos
   assets/scss/
     _variables.scss           # SCSS source tokens (colors, easing, font)
-    _mixins.scss              # clay-shadow-inset / clay-shadow-elevation
+    _mixins.scss              # clay-shadow-puff / clay-shadow-elevation
     _index.scss               # @forward variables as clay-* + main
     main.scss                 # :root CSS custom properties + body base styles
 ```
@@ -175,7 +175,7 @@ background-image: linear-gradient(rgba(from var(--white) r g b / 0.25), rgba(fro
 
 - **Layered box-shadows**: an outer elevation drop shadow + inner inset shadows
   for the puffy, pressed-clay depth. Use the mixins:
-  - `clay-shadow-inset($color, $intensity)` — the soft inner depth.
+  - `clay-shadow-puff($color, $intensity)` — the soft inner depth.
   - `clay-shadow-elevation($color, $intensity)` — the lift off the surface.
 - A **`::before` pseudo-element** absolutely positioned to fill the block, at
   `z-index: -1`, carrying inset shadows with `mix-blend-mode` (overlay /

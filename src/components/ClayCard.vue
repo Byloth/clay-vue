@@ -65,7 +65,7 @@
             border-radius: var(--clay-card-roundness);
             bottom: 0;
 
-            @include mixins.clay-shadow-inset($color: var(--clay-primary-color));
+            @include mixins.clay-shadow-puff($color: var(--clay-primary-color));
 
             content: "";
             left: 0;
@@ -103,7 +103,7 @@
 
             &::before
             {
-                @include mixins.clay-shadow-inset($intensity: 0.5, $color: var(--clay-card-color-shadow));
+                @include mixins.clay-shadow-puff($intensity: 0.5, $color: var(--clay-card-color-shadow));
             }
         }
     }
@@ -120,7 +120,7 @@
         {
             &::before
             {
-                @include mixins.clay-shadow-inset();
+                @include mixins.clay-shadow-puff();
             }
 
             &.clay-card--glass
