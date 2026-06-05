@@ -1,6 +1,6 @@
 import type { Preview } from "@storybook/vue3-vite";
 
-import "@/assets/scss/main.scss";
+import "@/assets/scss/_index.scss";
 
 const _prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 const _defaultTheme = _prefersDark ? "dark" : "light";

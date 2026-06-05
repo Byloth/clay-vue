@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-    import { computed, onMounted, onUnmounted, ref } from "vue";
+    import { computed, onMounted, ref } from "vue";
+    import { useEventListener } from "@vueuse/core";
+
     import type { Timeout } from "@/types";
 
     const props = defineProps({
@@ -62,11 +64,7 @@
         _easeDuration = parseFloat(propertyValue);
         if (_easeDuration < 1) { _easeDuration *= 1000; }
 
-        window.addEventListener("mouseup", onMouseUp);
-    });
-    onUnmounted((): void =>
-    {
-        window.removeEventListener("mouseup", onMouseUp);
+        useEventListener("mouseup", onMouseUp);
     });
 </script>
 
