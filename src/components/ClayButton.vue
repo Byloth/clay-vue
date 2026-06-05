@@ -60,6 +60,7 @@
         const propertyValue = computedStyle.getPropertyValue("--clay-ease-duration");
 
         _easeDuration = parseFloat(propertyValue);
+        if (_easeDuration < 1) { _easeDuration *= 1000; }
 
         window.addEventListener("mouseup", onMouseUp);
     });
