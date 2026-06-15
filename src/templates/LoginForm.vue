@@ -2,6 +2,7 @@
     import ClayButton from "@/components/ClayButton.vue";
     import ClayCard from "@/components/ClayCard.vue";
     import ClayInput from "@/components/inputs/ClayInput.vue";
+    import ClayToggle from "@/components/inputs/ClayToggle.vue";
 </script>
 
 <template>
@@ -13,6 +14,8 @@
             <ClayInput id="password"
                        placeholder="Type your password..."
                        type="password" />
+            <hr />
+            <ClayToggle id="accept-cookies" label="Ricordami la prossima volta" />
             <hr />
             <ClayButton type="submit">
                 Login
