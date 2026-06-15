@@ -5,6 +5,17 @@
 
     // let isDragging = false;
 
+    defineProps({
+        id: {
+            type: String,
+            required: true
+        },
+        label: {
+            type: String,
+            default: ""
+        }
+    });
+
     // const onKnobDown = (): void =>
     // {
     //     if (isDragging) { return; }
@@ -45,11 +56,16 @@
 </script>
 
 <template>
-    <label ref="$el" class="clay-toggle">
-        <input type="checkbox" class="clay-toggle__input" />
+    <label ref="$el"
+           :for="id"
+           class="clay-toggle">
+        <input :id="id"
+               type="checkbox"
+               class="clay-toggle__input" />
         <span class="clay-toggle__slider">
             <span class="clay-toggle__knob"></span>
         </span>
+        {{ label }}
     </label>
 </template>
 
@@ -82,8 +98,8 @@
         display: inline-block;
         height: var(--clay-toggle-height);
         position: relative;
-        width: var(--clay-toggle-width);
         transition: transform var(--clay-ease-duration) var(--clay-ease-function);
+        width: var(--clay-toggle-width);
 
         .clay-toggle__input
         {
@@ -108,20 +124,23 @@
 
             & > .clay-toggle__knob
             {
+                --clay-toggle-color-knob-shadow: oklch(from var(--clay-toggle-color-knob) calc(l - 0.25) c h);
+
+                @include mixins.clay-shadow-elevation($color: var(--clay-toggle-color-knob-elevation),
+                                                      $intensity: 0.125);
+
                 background-color: var(--clay-toggle-color-knob);
-                --clay-toggle-color-knob-shadow: oklch(from var(--clay-toggle-color-knob) calc(l - 0.25) c h );
                 border-radius: 50%;
                 bottom: var(--clay-toggle-knob-offset);
                 content: "";
+                cursor: grab;
                 height: var(--clay-toggle-knob-size);
                 left: var(--clay-toggle-knob-offset);
                 position: absolute;
-                transition: transform var(--clay-ease-duration) var(--clay-ease-function);
                 width: var(--clay-toggle-knob-size);
-                @include mixins.clay-shadow-elevation($color:
-                var(--clay-toggle-color-knob-elevation), $intensity: 0.125);
-                transition: transform var(--clay-ease-duration) var(--clay-ease-function),
-                        box-shadow var(--clay-ease-duration) var(--clay-ease-function);
+                transition: background-color var(--clay-ease-duration) var(--clay-ease-function),
+                            box-shadow var(--clay-ease-duration) var(--clay-ease-function),
+                            transform var(--clay-ease-duration) var(--clay-ease-function);
 
                 &::before
                 {
@@ -134,6 +153,11 @@
                     top: 0;
                     content: "";
                     @include mixins.clay-shadow-puff($intensity: 0.5);
+                }
+
+                &:active
+                {
+                    cursor: grabbing;
                 }
             }
         }
@@ -195,7 +219,7 @@
 
         .clay-toggle .clay-toggle__input:checked + .clay-toggle__slider > .clay-toggle__knob::before
         {
-            @include mixins.clay-shadow-puff($intensity: 0.75);
+            // @include mixins.clay-shadow-puff($intensity: 0.75);
         }
     }
 </style>

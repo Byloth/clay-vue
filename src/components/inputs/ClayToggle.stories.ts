@@ -2,10 +2,31 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 
 import ClayToggle from "./ClayToggle.vue";
 
-const meta: Meta = {
+interface StoryArgs
+{
+    label: string;
+}
+
+const meta: Meta<StoryArgs> = {
     title: "Inputs/ClayToggle",
     component: ClayToggle,
     tags: ["autodocs"],
+    argTypes: {
+        label: {
+            name: "Label",
+            type: { name: "string", required: false },
+            description: "The label displayed next to the toggle switch.",
+            table: {
+                category: "Component's",
+                defaultValue: { summary: "" },
+                type: { summary: "string" }
+            },
+            control: "text"
+        }
+    },
+    args: {
+        label: "Keep me signed in for the next time"
+    },
     parameters: {
         docs: {
             description: {
@@ -15,10 +36,11 @@ const meta: Meta = {
     }
 };
 
-export const Default: StoryObj = {
-    render: () => ({
+export const Default: StoryObj<StoryArgs> = {
+    render: (args) => ({
         components: { ClayToggle },
-        template: "<ClayToggle />"
+        setup: () => ({ args }),
+        template: `<ClayToggle :label="args.label" />`
     })
 };
 
