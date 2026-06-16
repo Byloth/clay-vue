@@ -86,7 +86,7 @@
         --clay-toggle-shadow: inset 0 0.25em 0.25em 0 rgba(from var(--clay-toggle-color-shadow) r g b / 0.125),
                               inset 0 -0.25em 0.25em 0 rgba(from var(--white) r g b / 0.25);
 
-        --clay-toggle-width: 4em;
+        --clay-toggle-width: 3.75em;
         --clay-toggle-height: 2em;
         --clay-toggle-knob-size: 1.5em;
         --clay-toggle-knob-offset: 0.25em;
@@ -113,8 +113,8 @@
         {
             background-color: var(--clay-toggle-color-off);
             border-radius: var(--clay-toggle-height);
-            box-shadow: var(--clay-toggle-shadow);
             bottom: 0;
+            box-shadow: var(--clay-toggle-shadow);
             left: 0;
             position: absolute;
             right: 0;
@@ -144,15 +144,16 @@
 
                 &::before
                 {
+                    @include mixins.clay-shadow-puff($intensity: 0.5);
+
                     border-radius: 50%;
                     bottom: 0;
+                    content: "";
                     left: 0;
                     mix-blend-mode: luminosity;
                     position: absolute;
                     right: 0;
                     top: 0;
-                    content: "";
-                    @include mixins.clay-shadow-puff($intensity: 0.5);
                 }
 
                 &:active
@@ -168,8 +169,10 @@
 
             & > .clay-toggle__knob
             {
-                transform: translateX(
-                    calc(var(--clay-toggle-width) - var(--clay-toggle-knob-size) - 2 * var(--clay-toggle-knob-offset))
+                transform: translateX( calc(
+                                        var(--clay-toggle-width) -
+                                        var(--clay-toggle-knob-size) - 2 *
+                                        var(--clay-toggle-knob-offset))
                 );
             }
         }
@@ -177,7 +180,8 @@
         .clay-toggle__input:focus-visible + .clay-toggle__slider
         {
             box-shadow: var(--clay-toggle-shadow),
-                        functions.clay-outline($color: var(--clay-toggle-color-outline), $width: 0.2em);
+            functions.clay-outline($color: var(--clay-toggle-color-outline),
+                                   $width: 0.2em);
         }
 
         &:hover .clay-toggle__slider > .clay-toggle__knob
@@ -188,8 +192,9 @@
 
     &:focus-visible
         {
-            box-shadow: functions.clay-outline($color: var(--clay-toggle-color-outline), $width: 0.15em),
-                        0 0.25em 0.25em 0 rgba(from var(--clay-toggle-color-shadow) r g b / 0.333);
+            box-shadow: functions.clay-outline($color: var(--clay-toggle-color-outline),
+                                               $width: 0.15em),
+                0 0.25em 0.25em 0 rgba(from var(--clay-toggle-color-shadow) r g b / 0.333);
 
             transform: translateY(-0.0625em) scale(1.1);
         }
@@ -209,6 +214,7 @@
         {
             --clay-toggle-color-knob: var(--white);
             --clay-toggle-color-knob-elevation: var(--white);
+
             box-shadow: 0 0 0.375em 0 rgba(from var(--clay-toggle-color-knob-elevation) r g b / 0.25);
         }
 
