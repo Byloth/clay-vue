@@ -61,7 +61,7 @@
         font-family: inherit;
         outline: none;
         padding: var(--clay-input-spacing);
-        padding-top: calc(var(--clay-input-spacing-y) + 0.25em);
+        //padding-top: calc(var(--clay-input-spacing-y) + 0.25em);
         transition: background-color var(--clay-ease-duration) var(--clay-ease-function),
                     border-color var(--clay-ease-duration) var(--clay-ease-function),
                     box-shadow var(--clay-ease-duration) var(--clay-ease-function),
