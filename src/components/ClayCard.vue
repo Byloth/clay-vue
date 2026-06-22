@@ -62,19 +62,14 @@
 
         &::before
         {
-            border-radius: var(--clay-card-roundness);
-            bottom: 0;
-
             @include mixins.clay-shadow-puff($color: var(--clay-primary-color));
 
+            border-radius: var(--clay-card-roundness);
             content: "";
-            left: 0;
+            inset: 0;
             mix-blend-mode: multiply;
             position: absolute;
-            right: 0;
-            top: 0;
             transition: box-shadow var(--clay-ease-duration) var(--clay-ease-function);
-
             z-index: -1;
         }
 

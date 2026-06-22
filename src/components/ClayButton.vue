@@ -120,19 +120,14 @@
 
         &::before
         {
-            border-radius: var(--clay-button-roundness);
-            bottom: 0;
-
             @include mixins.clay-shadow-puff($intensity: 0.5);
 
+            border-radius: var(--clay-button-roundness);
             content: "";
-            left: 0;
+            inset: 0;
             mix-blend-mode: luminosity;
             position: absolute;
-            right: 0;
-            top: 0;
             transition: box-shadow var(--clay-ease-duration) var(--clay-ease-function);
-
             z-index: -1;
         }
 
