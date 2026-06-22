@@ -113,12 +113,9 @@
         {
             background-color: var(--clay-toggle-color-off);
             border-radius: var(--clay-toggle-height);
-            bottom: 0;
             box-shadow: var(--clay-toggle-shadow);
-            left: 0;
+            inset: 0;
             position: absolute;
-            right: 0;
-            top: 0;
             transition: background-color var(--clay-ease-duration) var(--clay-ease-function),
                         box-shadow var(--clay-ease-duration) var(--clay-ease-function);
 
@@ -147,14 +144,10 @@
                     @include mixins.clay-shadow-puff($intensity: 0.5);
 
                     border-radius: 50%;
-                    bottom: 0;
                     content: "";
-                    left: 0;
                     mix-blend-mode: luminosity;
                     position: absolute;
-                    right: 0;
-                    top: 0;
-                }
+                    inset: 0;}
 
                 &:active
                 {
