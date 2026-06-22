@@ -104,7 +104,7 @@
         box-shadow: functions.clay-outline($color: var(--clay-button-color-outline), $opacity: 0),
                     0 0.1em 0.2em -0.1em rgba(from var(--clay-button-color-shadow) r g b / 0.75);
 
-        color: var(--white);
+        color: contrast-color(var(--clay-button-color-background));
         cursor: pointer;
         font-family: inherit;
         font-size: 1em;
