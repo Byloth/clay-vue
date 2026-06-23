@@ -52,41 +52,4 @@
 
 <style lang="scss" scoped>
     @use "@/assets/scss/variables";
-
-    .alert
-    {
-        & > .alert-heading > .fa-solid
-        {
-            margin-right: 0.25em;
-        }
-        & > .btn-close
-        {
-            align-items: center;
-            background-image: unset;
-            display: flex;
-            filter: none;
-            font-size: 1.5rem;
-            justify-content: center;
-            padding: 0.75em;
-        }
-        & > .fa-solid
-        {
-            margin-right: 0.5em;
-            margin-top: 0.15em;
-        }
-
-        &.flex
-        {
-            display: flex;
-
-            &.flex-horizontal
-            {
-                flex-direction: row;
-            }
-            &.flex-vertical
-            {
-                flex-direction: column;
-            }
-        }
-    }
 </style>
