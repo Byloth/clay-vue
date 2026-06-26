@@ -1,6 +1,8 @@
 <script lang="ts" setup>
     import { computed } from "vue";
 
+    import ClayCard from "@/components/ClayCard.vue";
+
     const props = defineProps({
         title: {
             default: "",
@@ -34,9 +36,9 @@
 </script>
 
 <template>
-    <div class="clay-alert"
-         :class="classes"
-         role="alert">
+    <ClayCard class="clay-alert"
+              :class="classes"
+              role="alert">
         <h3 v-if="title" class="clay-alert__heading">
             <span v-if="icon"
                   class="clay-alert__icon fa-solid"
@@ -60,7 +62,7 @@
                 @click="$emit('dismiss', $event)">
             <span class="fa-solid fa-xmark" aria-hidden="true"></span>
         </button>
-    </div>
+    </ClayCard>
 </template>
 
 <style lang="scss">
@@ -71,8 +73,6 @@
     {
         --clay-alert-color-background: var(--clay-light-color);
         --clay-alert-color: var(--clay-primary-color);
-        --clay-alert-color-shadow: oklch(from var(--clay-alert-color) calc(l - 0.25) c h);
-        --clay-alert-color-outline: oklch(from var(--clay-alert-color) l c calc(h + 180));
 
         --clay-alert-opacity: 1.0;
 
@@ -86,6 +86,9 @@
 
     .clay-alert
     {
+        --clay-alert-color-shadow: var(--clay-alert-color);
+        --clay-alert-color-outline: oklch(from var(--clay-primary-color) l c calc(h + 180));
+
         @include mixins.clay-shadow-elevation($color: var(--clay-alert-color-shadow));
 
         align-items: center;
@@ -131,49 +134,44 @@
             margin: 0;
         }
 
-        &__icon // serve per dare il colore all'icona.
+        &__icon // colore icona alert
         {
             color: var(--clay-alert-color);
         }
 
-        &__close
+        &__close // il dismissable
         {
-            --clay-alert-close-size: 1.75em;
-
             align-items: center;
             appearance: none;
-            background-color: oklch(from var(--clay-alert-color) l c h);
-            background-image: linear-gradient(rgba(from var(--white) r g b / 0.25),
-                                                rgba(from var(--black) r g b / 0.125));
-            background-blend-mode: overlay;
+            background: none;
             border: none;
-            border-radius: 100%;
-            color: inherit;
+            color: var(--clay-alert-color);
             cursor: pointer;
             display: flex;
-            font-size: 0.85em;
-            height: var(--clay-alert-close-size);
+            font-size: 1em;
             justify-content: center;
             line-height: 1;
+            margin: 0;
             outline: none;
+            opacity: 0.5;
+            padding: 0;
             position: absolute;
-            right: var(--clay-alert-spacing-y);
+            right: var(--clay-alert-spacing-x);
             top: var(--clay-alert-spacing-y);
-            width: var(--clay-alert-close-size);
 
-            transition: background-color var(--clay-ease-duration) var(--clay-ease-function),
-                        box-shadow var(--clay-ease-duration) var(--clay-ease-function),
+            transition: color var(--clay-ease-duration) var(--clay-ease-function),
+                        opacity var(--clay-ease-duration) var(--clay-ease-function),
                         transform var(--clay-ease-duration) var(--clay-ease-function);
 
             &:hover
             {
-                background-color: rgba(from var(--clay-alert-color-shadow) r g b / 0.2);
-                transform: scale(1.15);
+                opacity: 0.9;
+                transform: scale(1.05);
             }
             &:focus-visible
             {
+                border-radius: 0.25em;
                 box-shadow: functions.clay-outline($color: var(--clay-alert-color-outline), $width: 0.15em);
-                transform: scale(1.15);
             }
             &:active
             {
@@ -220,24 +218,15 @@
         :root
         {
             --clay-alert-color-background: var(--clay-dark-color);
-            --clay-alert-color-shadow: var(--black);
         }
 
         .clay-alert
         {
+            --clay-alert-color-shadow: var(--black);
+
             &::before
             {
                 @include mixins.clay-shadow-puff();
-            }
-
-            &__close
-            {
-                background-color: rgba(from var(--white) r g b / 0.1);
-
-                &:hover
-                {
-                    background-color: rgba(from var(--white) r g b / 0.175);
-                }
             }
         }
     }

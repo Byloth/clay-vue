@@ -96,7 +96,8 @@ const meta: Meta<StoryArgs> = {
 export const Default: StoryObj<StoryArgs> = {
     args: {
         title: "This is an alert",
-        icon: "info"
+        icon: "info",
+        content: "Alert !"
     },
 
     render: (args) => ({
