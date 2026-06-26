@@ -71,57 +71,26 @@
 
     :root
     {
-        --clay-alert-color-background: var(--clay-light-color);
         --clay-alert-color: var(--clay-primary-color);
 
-        --clay-alert-opacity: 1.0;
+        --clay-alert-gap: 0.75em;
 
         --clay-alert-spacing-x: 1.25em;
         --clay-alert-spacing-y: 1em;
         --clay-alert-spacing: var(--clay-alert-spacing-y) var(--clay-alert-spacing-x);
-        --clay-alert-gap: 0.75em;
-
-        --clay-alert-roundness: var(--clay-alert-spacing-x);
     }
 
     .clay-alert
     {
-        --clay-alert-color-shadow: var(--clay-alert-color);
-        --clay-alert-color-outline: oklch(from var(--clay-primary-color) l c calc(h + 180));
-
-        @include mixins.clay-shadow-elevation($color: var(--clay-alert-color-shadow));
+        --clay-card-color: var(--clay-alert-color);
+        --clay-card-color-shadow: oklch(from var(--clay-card-color) calc(l - 0.25) c h);
 
         align-items: center;
-        background-color: rgba(from var(--clay-alert-color-background) r g b / var(--clay-alert-opacity));
-        background-image: linear-gradient(rgba(from var(--white) r g b / 0.25),
-                                            rgba(from var(--black) r g b / 0.125));
-        background-blend-mode: overlay;
-        border-radius: var(--clay-alert-roundness);
         box-sizing: border-box;
-        color: var(--clay-alert-color-text);
         display: flex;
         gap: var(--clay-alert-gap);
-        margin: 0;
         padding: var(--clay-alert-spacing);
-        perspective: 0;
-        position: relative;
         text-align: left;
-        transition: background-color var(--clay-ease-duration) var(--clay-ease-function),
-                    box-shadow var(--clay-ease-duration) var(--clay-ease-function),
-                    color var(--clay-ease-duration) var(--clay-ease-function);
-
-        &::before // puff dell'alert
-        {
-            @include mixins.clay-shadow-puff($color: var(--clay-alert-color));
-
-            border-radius: var(--clay-alert-roundness);
-            content: "";
-            inset: 0;
-            mix-blend-mode: multiply;
-            position: absolute;
-
-            z-index: -1;
-        }
 
         &__heading // serve per il titolo dell'alert.
         {

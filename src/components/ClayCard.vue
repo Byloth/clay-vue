@@ -33,8 +33,10 @@
 
     :root
     {
+        --clay-card-color: var(--clay-primary-color);
+
         --clay-card-color-background: var(--clay-light-color);
-        --clay-card-color-shadow: oklch(from var(--clay-primary-color) calc(l - 0.25) c h);
+        --clay-card-color-shadow: oklch(from var(--clay-card-color) calc(l - 0.25) c h);
 
         --clay-card-opacity: 1.0;
 
@@ -65,7 +67,7 @@
             border-radius: var(--clay-card-roundness);
             bottom: 0;
 
-            @include mixins.clay-shadow-puff($color: var(--clay-primary-color));
+            @include mixins.clay-shadow-puff($color: var(--clay-card-color));
 
             content: "";
             left: 0;
