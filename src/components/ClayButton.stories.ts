@@ -7,7 +7,8 @@ interface StoryArgs
 {
     label: string;
     size: "small" | "default" | "large";
-    click: () => void;
+
+    onClick: () => void;
 }
 
 const meta: Meta<StoryArgs> = {
@@ -21,7 +22,7 @@ const meta: Meta<StoryArgs> = {
             description: "The text displayed on the button.",
             table: {
                 category: "Component's",
-                defaultValue: { summary: "Click me!" },
+                defaultValue: { summary: "" },
                 type: { summary: "string" }
             },
             control: "text"
@@ -44,26 +45,34 @@ const meta: Meta<StoryArgs> = {
                 }
             },
             options: ["small", "default", "large"]
+        },
+
+        onClick: {
+            name: "Click",
+            description: "Fired when the button is clicked (native event pass-through).",
+            table: {
+                category: "Events",
+                type: { summary: "MouseEvent" }
+            },
+            control: false
         }
     },
     args: {
         label: "Click me!",
         size: "default",
-        click: fn()
+
+        onClick: fn()
     }
 };
 
 export const Primary: StoryObj<StoryArgs> = {
-    // args: {
-    //     label: "Click me!",
-    //     size: "default"
-    // },
     render: (args: StoryArgs) => ({
         components: { ClayButton },
         setup: () => ({ args }),
         template: `
             <ClayButton :small="args.size === 'small'"
-                        :large="args.size === 'large'">
+                        :large="args.size === 'large'"
+                        @click="args.onClick">
                 {{ args.label }}
             </ClayButton>
         `

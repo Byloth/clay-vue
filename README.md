@@ -2,32 +2,99 @@
 
 Fluffy, friendly &amp; 3D: reusable Vue components based on the Claymorphism UI design style.
 
-## Project Setup
+> ⚠️ **Work in progress** — currently `1.0.0-dev.*`.
+> The stable public API only includes `ClayButton` and `ClayCard`, for now.
+
+## Installation
 
 ```sh
-pnpm install
+pnpm add @byloth/clay-vue
 ```
 
-### Compile and Hot-Reload for Development
+## Usage
 
-```sh
-pnpm run dev
+### Framework-agnostic (custom elements)
+
+The package root ships **native custom elements** — Vue's runtime is compiled
+in, so they're ready to use in plain HTML/JS or from any framework:
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/@byloth/clay-vue/dist/clay-vue.css" />
+<script src="https://unpkg.com/@byloth/clay-vue"></script>
+
+<clay-card>
+    <clay-button>Click me!</clay-button>
+</clay-card>
 ```
 
-### Compile and Minify for Production
+Or, from a bundler:
 
-```sh
-pnpm run build
+```ts
+import "@byloth/clay-vue";
+import "@byloth/clay-vue/style.css";
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+The elements render in **light DOM**, so the stylesheet and all the
+`--clay-*` design tokens work exactly as with the Vue components.
 
-```sh
-pnpm run lint
+### With Vue
+
+In a Vue app, import the components directly from the `/vue` entry —
+here `vue` stays external: your app provides it (any Vue 3.5+ will do).
+
+```ts
+import { ClayButton, ClayCard } from "@byloth/clay-vue/vue";
+
+import "@byloth/clay-vue/style.css";
 ```
 
-### Type-Checking with [TypeScript](https://www.typescriptlang.org/)
+```vue
+<template>
+    <ClayCard>
+        <ClayButton>Click me!</ClayButton>
+    </ClayCard>
+</template>
+```
+
+> When other frameworks get first-class adapters, they'll follow the same
+> pattern: `@byloth/clay-vue/react`, `/angular`, `/svelte`, …
+
+### Theming
+
+Every visual aspect is driven by `--clay-*` CSS custom properties, and all the
+library's styles live in sub-layers of a single `clay` cascade layer: any
+unlayered CSS of yours always wins — no `!important` needed.
+
+```css
+:root
+{
+    --clay-color-primary: hotpink;
+    --clay-button-roundness: 0.5em;
+}
+```
+
+SCSS sources are shipped too, if you prefer the `$clay-*` variables:
+
+```scss
+@use "pkg:@byloth/clay-vue/scss" as clay;
+```
+
+### Fonts
+
+The Claymorphism look is designed around [Baloo 2](https://fonts.google.com/specimen/Baloo+2),
+but the library **doesn't load any remote font** by itself: add it to your app
+if you want the full look (the font stack gracefully falls back otherwise).
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap" rel="stylesheet" />
+```
+
+## Development
 
 ```sh
-pnpm run typecheck
+pnpm install    # install dependencies
+pnpm dev        # Storybook dev server on :6006
+pnpm build      # library + Storybook build
+pnpm lint       # ESLint
+pnpm typecheck  # vue-tsc
 ```

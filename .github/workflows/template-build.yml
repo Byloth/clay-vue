@@ -1,0 +1,68 @@
+name: "<template:build>"
+on:
+  workflow_call:
+    inputs:
+      artifact:
+        description: "The artifact to build & upload: `none`, `storybook` or `package`."
+        type: string
+        required: false
+        default: none
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cloning source code
+        uses: actions/checkout@v6
+      - name: "`pnpm` installation"
+        uses: pnpm/action-setup@v6
+        with:
+          version: latest
+
+      - name: Configuring Node.js 24 (LTS)
+        uses: actions/setup-node@v6
+        with:
+          cache: pnpm
+          node-version: 24
+
+      - name: Installing dependencies
+        run: pnpm run ci
+      - name: Linting the source code
+        run: pnpm run lint
+        env:
+          NODE_ENV: production
+
+      - name: Checking type consistency
+        run: pnpm run typecheck
+      - name: Testing the package
+        run: pnpm run test
+
+      - if: ${{ inputs.artifact == 'none' }}
+        name: Building the source code
+        run: pnpm build
+
+      - if: ${{ inputs.artifact == 'storybook' }}
+        name: Building the documentation
+        run: pnpm build:storybook
+      - if: ${{ inputs.artifact == 'storybook' }}
+        name: Uploading the artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: byloth-clay_vue-storybook
+          path: .storybook/dist
+
+      - if: ${{ inputs.artifact == 'package' }}
+        name: Creating the artifact
+        run: |
+          PACKAGE_VERSION=`node -e "console.log(require('./package.json').version);"`
+          PACKAGE_NAME="byloth-clay-vue-${PACKAGE_VERSION}.tgz"
+          pnpm pack
+          tar -xzvf "${PACKAGE_NAME}" -C "."
+
+      - if: ${{ inputs.artifact == 'package' }}
+        name: Uploading the artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: byloth-clay_vue-package
+          path: package

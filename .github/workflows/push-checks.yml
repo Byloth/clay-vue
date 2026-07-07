@@ -1,0 +1,9 @@
+name: Push checks
+on:
+  push:
+    branches-ignore: [master]
+
+jobs:
+  checks:
+    name: Build checks
+    uses: ./.github/workflows/template-build.yml
