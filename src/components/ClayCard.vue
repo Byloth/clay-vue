@@ -29,99 +29,110 @@
 </template>
 
 <style lang="scss">
+    @use "@/assets/scss/layers";
     @use "@/assets/scss/mixins";
 
-    :root
+    @layer clay.theme
     {
-        --clay-card-color-background: var(--clay-light-color);
-        --clay-card-color-shadow: oklch(from var(--clay-primary-color) calc(l - 0.25) c h);
-
-        --clay-card-opacity: 1.0;
-
-        --clay-card-spacing-x: 1em;
-        --clay-card-spacing-y: 0.5em;
-        --clay-card-spacing: var(--clay-card-spacing-y) var(--clay-card-spacing-x);
-
-        --clay-card-roundness: var(--clay-card-spacing-x);
-    }
-
-    .clay-card
-    {
-        background-color: rgba(from var(--clay-card-color-background) r g b / var(--clay-card-opacity));
-        background-image: linear-gradient(rgba(from var(--white) r g b / 0.25), rgba(from var(--black) r g b / 0.125));
-        background-blend-mode: overlay;
-        border-radius: var(--clay-card-roundness);
-
-        @include mixins.clay-shadow-elevation($color: var(--clay-card-color-shadow));
-
-        padding: var(--clay-card-spacing);
-        perspective: 0;
-        position: relative;
-        transition: background-color var(--clay-ease-duration) var(--clay-ease-function),
-                    box-shadow var(--clay-ease-duration) var(--clay-ease-function);
-
-        &::before
+        :root
         {
-            @include mixins.clay-shadow-puff($color: var(--clay-primary-color));
+            --clay-card-color-background: var(--clay-color-light);
+            --clay-card-color-shadow: oklch(from var(--clay-color-primary) calc(l - 0.25) c h);
 
-            border-radius: var(--clay-card-roundness);
-            content: "";
-            inset: 0;
-            mix-blend-mode: multiply;
-            position: absolute;
-            transition: box-shadow var(--clay-ease-duration) var(--clay-ease-function);
-            z-index: -1;
+            --clay-card-opacity: 1.0;
+
+            --clay-card-spacing-x: 1em;
+            --clay-card-spacing-y: 0.5em;
+            --clay-card-spacing: var(--clay-card-spacing-y) var(--clay-card-spacing-x);
+
+            --clay-card-roundness: var(--clay-card-spacing-x);
         }
 
-        &.clay-card--elevation-none
+        @media (prefers-color-scheme: dark)
         {
-            @include mixins.clay-shadow-elevation($color: var(--clay-card-color-shadow), $intensity: 0.125);
-        }
-        &.clay-card--elevation-low
-        {
-            @include mixins.clay-shadow-elevation($color: var(--clay-card-color-shadow), $intensity: 0.5);
-        }
-        &.clay-card--elevation-high
-        {
-            @include mixins.clay-shadow-elevation($color: var(--clay-card-color-shadow), $intensity: 2);
-        }
-
-        &.clay-card--glass
-        {
-            --clay-card-color-background: var(--clay-light-color);
-            --clay-card-color-shadow: oklch(from var(--clay-card-color-background) calc(l - 0.50) c h);
-
-            --clay-card-blur: 0.5em;
-            --clay-card-opacity: 0.5;
-
-            backdrop-filter: blur(var(--clay-card-blur)) saturate(180%);
-
-            &::before
+            :root
             {
-                @include mixins.clay-shadow-puff($intensity: 0.5, $color: var(--clay-card-color-shadow));
+                --clay-card-color-background: var(--clay-color-dark);
+                --clay-card-color-shadow: #000000;
             }
         }
     }
 
-    @media (prefers-color-scheme: dark)
+    @layer clay.components
     {
-        :root
-        {
-            --clay-card-color-background: var(--clay-dark-color);
-            --clay-card-color-shadow: var(--black);
-        }
-
         .clay-card
         {
+            background-color: rgba(from var(--clay-card-color-background) r g b / var(--clay-card-opacity));
+            background-image: linear-gradient(rgba(from #FFFFFF r g b / 0.25),
+                                              rgba(from #000000 r g b / 0.125));
+            background-blend-mode: overlay;
+            border-radius: var(--clay-card-roundness);
+
+            @include mixins.clay-shadow-elevation($color: var(--clay-card-color-shadow));
+
+            padding: var(--clay-card-spacing);
+            perspective: 0;
+            position: relative;
+            transition: background-color var(--clay-ease-duration) var(--clay-ease-function),
+                        box-shadow var(--clay-ease-duration) var(--clay-ease-function);
+
             &::before
             {
-                @include mixins.clay-shadow-puff();
+                @include mixins.clay-shadow-puff($color: var(--clay-color-primary));
+
+                border-radius: var(--clay-card-roundness);
+                content: "";
+                inset: 0;
+                mix-blend-mode: multiply;
+                position: absolute;
+                transition: box-shadow var(--clay-ease-duration) var(--clay-ease-function);
+                z-index: -1;
+            }
+
+            &.clay-card--elevation-none
+            {
+                @include mixins.clay-shadow-elevation($color: var(--clay-card-color-shadow), $intensity: 0.125);
+            }
+            &.clay-card--elevation-low
+            {
+                @include mixins.clay-shadow-elevation($color: var(--clay-card-color-shadow), $intensity: 0.5);
+            }
+            &.clay-card--elevation-high
+            {
+                @include mixins.clay-shadow-elevation($color: var(--clay-card-color-shadow), $intensity: 2);
             }
 
             &.clay-card--glass
             {
-                --clay-card-color-background: var(--clay-dark-color);
-                --clay-card-color-shadow: var(--black);
+                --clay-card-color-background: var(--clay-color-light);
+                --clay-card-color-shadow: oklch(from var(--clay-card-color-background) calc(l - 0.50) c h);
+
+                --clay-card-blur: 0.5em;
+                --clay-card-opacity: 0.5;
+
+                backdrop-filter: blur(var(--clay-card-blur)) saturate(180%);
+
+                &::before
+                {
+                    @include mixins.clay-shadow-puff($intensity: 0.5, $color: var(--clay-card-color-shadow));
+                }
+            }
+        }
+
+        @media (prefers-color-scheme: dark)
+        {
+            .clay-card
+            {
+                &::before
+                {
+                    @include mixins.clay-shadow-puff();
+                }
+
+                &.clay-card--glass
+                {
+                    --clay-card-color-background: var(--clay-color-dark);
+                    --clay-card-color-shadow: #000000;
+                }
             }
         }
     }

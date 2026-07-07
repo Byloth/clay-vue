@@ -1,0 +1,45 @@
+name: Publish Storybook to GitHub Pages
+on:
+  push:
+    branches: [master]
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  docs-build:
+    name: Storybook build
+    uses: ./.github/workflows/template-build.yml
+    with:
+      artifact: storybook
+
+  docs-deploy:
+    name: Artifact deploy
+    needs: docs-build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Download the artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: byloth-clay_vue-storybook
+
+      - name: Configuring GitHub Pages
+        uses: actions/configure-pages@v6
+      - name: Uploading to GitHub Pages
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: "."
+
+      - id: deployment
+        name: Deploying to GitHub Pages
+        uses: actions/deploy-pages@v5
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}

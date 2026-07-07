@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { fn } from "storybook/test";
 
 import ClayInput from "./ClayInput.vue";
 
@@ -6,6 +7,8 @@ interface StoryArgs
 {
     placeholder: string;
     size: "small" | "default" | "large";
+
+    onUpdate: (value: string) => void;
 }
 
 const meta: Meta<StoryArgs> = {
@@ -19,7 +22,7 @@ const meta: Meta<StoryArgs> = {
             description: "The placeholder text for the input.",
             table: {
                 category: "Component's",
-                defaultValue: { summary: "Enter text here..." },
+                defaultValue: { summary: "" },
                 type: { summary: "string" }
             },
             control: "text"
@@ -42,11 +45,23 @@ const meta: Meta<StoryArgs> = {
                 }
             },
             options: ["small", "default", "large"]
+        },
+
+        onUpdate: {
+            name: "Update",
+            description: "Fired whenever the value changes — the `v-model` event (`update:modelValue`).",
+            table: {
+                category: "Events",
+                type: { summary: "string" }
+            },
+            control: false
         }
     },
     args: {
         placeholder: "Enter text here...",
-        size: "default"
+        size: "default",
+
+        onUpdate: fn()
     }
 };
 
@@ -57,7 +72,8 @@ export const Default: StoryObj<StoryArgs> = {
         template: `<ClayInput id="storybook--story__clay-input"
                               :placeholder="args.placeholder"
                               :small="args.size === 'small'"
-                              :large="args.size === 'large'" />`
+                              :large="args.size === 'large'"
+                              @update:model-value="args.onUpdate" />`
     })
 };
 

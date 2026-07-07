@@ -1,0 +1,45 @@
+name: GPR release
+on:
+  release:
+    types: [published]
+
+jobs:
+  artifact-build:
+    name: Artifact
+    uses: ./.github/workflows/template-build.yml
+    with:
+      artifact: package
+
+  publish:
+    name: Publish on GPR
+    needs: artifact-build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+
+    steps:
+      - name: Downloading the artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: byloth-clay_vue-package
+
+      - name: Configuring Node.js 24 (LTS)
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          registry-url: https://npm.pkg.github.com/
+
+      - name: Updating npm to the latest version
+        run: npm install -g npm@latest
+
+      - if: ${{ github.event.release.prerelease == true }}
+        name: Publishing pre-release package
+        run: npm publish --access public --ignore-scripts --tag next
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - if: ${{ github.event.release.prerelease == false }}
+        name: Publishing latest package
+        run: npm publish --access public --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

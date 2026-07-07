@@ -1,4 +1,4 @@
-@function clay-outline($color: var(--black), $opacity: 1, $width: 0)
+@function clay-outline($color: #000000, $opacity: 1, $width: 0)
 {
     @return 0 0 0 $width rgba(from $color r g b / $opacity);
 }

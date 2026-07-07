@@ -1,51 +1,53 @@
+@use "./layers";
 @use "./variables";
 
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&display=swap');
-
-:root
+@layer clay.theme
 {
-    --black: rgb(0, 0, 0);
-    --white: rgb(255, 255, 255);
-
-    --clay-light-color: #{variables.$light-color};
-    --clay-dark-color: #{variables.$dark-color};
-
-    --clay-primary-color: #{variables.$primary-color};
-
-    --clay-ease-duration: #{variables.$ease-duration};
-    --clay-ease-function: #{variables.$ease-function};
-
-    --clay-text-color: var(--black);
-
-    @media (prefers-color-scheme: light)
+    :root
     {
-        --clay-color-background: var(--clay-light-color);
-        --clay-text-color: var(--black);
-    }
-    @media (prefers-color-scheme: dark)
-    {
-        --clay-color-background: var(--clay-dark-color);
-        --clay-text-color: var(--white);
+        --clay-color-light: #{variables.$color-light};
+        --clay-color-dark: #{variables.$color-dark};
+
+        --clay-color-primary: #{variables.$color-primary};
+
+        --clay-ease-duration: #{variables.$ease-duration};
+        --clay-ease-function: #{variables.$ease-function};
+
+        --clay-color-text: #000000;
+
+        @media (prefers-color-scheme: light)
+        {
+            --clay-color-background: var(--clay-color-light);
+            --clay-color-text: #000000;
+        }
+        @media (prefers-color-scheme: dark)
+        {
+            --clay-color-background: var(--clay-color-dark);
+            --clay-color-text: #FFFFFF;
+        }
     }
 }
 
-body
+@layer clay.base
 {
-    background-color: var(--clay-color-background);
-    color: var(--clay-text-color);
-    color-scheme: normal;
-    height: 100%;
-    font-family: #{variables.$font-family};
-    text-align: center;
-    transition: background-color var(--clay-ease-duration) var(--clay-ease-function),
-                color var(--clay-ease-duration) var(--clay-ease-function);
+    body
+    {
+        background-color: var(--clay-color-background);
+        color: var(--clay-color-text);
+        color-scheme: normal;
+        height: 100%;
+        font-family: #{variables.$font-family};
+        text-align: center;
+        transition: background-color var(--clay-ease-duration) var(--clay-ease-function),
+                    color var(--clay-ease-duration) var(--clay-ease-function);
 
-    &[light]
-    {
-        color-scheme: light;
-    }
-    &[dark]
-    {
-        color-scheme: dark;
+        &[light]
+        {
+            color-scheme: light;
+        }
+        &[dark]
+        {
+            color-scheme: dark;
+        }
     }
 }

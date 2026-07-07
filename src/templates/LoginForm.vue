@@ -22,15 +22,20 @@
 </template>
 
 <style lang="scss">
-    .login-form
-    {
-        display: flex;
-        flex-direction: column;
-        gap: 1em;
+    @use "@/assets/scss/layers";
 
-        hr
+    @layer clay.templates
+    {
+        .login-form
         {
-            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+
+            hr
+            {
+                width: 100%;
+            }
         }
     }
 </style>

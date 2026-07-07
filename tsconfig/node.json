@@ -8,7 +8,9 @@
   },
   "include": [
     "../vite.config.*",
+    "../vite.*.config.*",
     "../vitest.config.*",
+    "../tests/**/*",
     "../cypress.config.*",
     "../nightwatch.conf.*",
     "../playwright.config.*"
