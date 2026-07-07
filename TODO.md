@@ -8,16 +8,6 @@ in `CLAUDE.md` (see *Core design principles*). Check items off as they land.
 Existing bugs that already violate the initial requirements. Clear these before
 adding new components or features.
 
-- [ ] **`src/utils.ts` breaks SSR** — `window.matchMedia(...)` (line 7),
-      `_mediaQuery.matches` (line 8) and `addEventListener` (line 16) run at
-      module top-level, so importing the module throws on the server. Move all
-      `window`/`document` access inside `useTheme()` and/or guard with
-      `typeof window !== "undefined"`, wiring listeners on mount. (Principle 1.)
-- [ ] **`src/utils.ts` writable computed is broken** — the `scheme` setter
-      toggles `body[light]/[dark]` but never updates `_scheme.value`, so the
-      getter and setter are disconnected (reading back after a manual set returns
-      the stale value). Sync the ref in the setter (likely the leftover of the
-      "broken `color-scheme`" fix).
 - [ ] **Inputs have no accessible label** — `ClayInput`/`ClayTextarea` require an
       `id` but no `<label for>` exists; `LoginForm` relies on `placeholder` only,
       which is not an accessible label. Provide proper label association.
@@ -25,9 +15,13 @@ adding new components or features.
 
 ## Accessibility
 
-- [ ] **Adaptive text color** — switch text white ↔ black automatically when a
-      component's background gets too light/dark (start with `ClayButton`, then
-      generalize). Keep readable contrast in both themes.
+- [ ] **Adaptive text color** — `ClayButton` already switches its text via CSS
+      `contrast-color()`, but the results with the current palette are
+      objectively off. Open decision: (a) leave the burden to the consuming dev
+      (override via custom property), or (b) implement a custom luminance-based
+      calculation (weighted R/G/B coefficients, or a threshold on the OKLCH `L`
+      channel via relative color syntax). Once settled, generalize to the other
+      components. Keep readable contrast in both themes.
 - [ ] **Reduced motion** — honor `@media (prefers-reduced-motion: reduce)`:
       disable/soften the springy transitions, transforms and squash-&-stretch
       across all components.
@@ -67,11 +61,19 @@ adding new components or features.
       `src/index.ts` once ready: `ClayCard`, `ClayInput`, `ClayTextarea`.
 - [ ] Decide whether `templates/` (e.g. `LoginForm`) become public recipes or
       remain Storybook-only demos.
+- [ ] **Theme forcing** — the old `useTheme()` composable (`src/utils.ts`) was
+      removed with the Storybook 10 upgrade, so the `body[light]/[dark]` CSS
+      hooks currently have no JS driver. Decide whether to ship a replacement
+      composable (candidate: `useColorMode` from `@vueuse/core`, already a
+      dependency — reactive system-pref tracking, `localStorage` persistence,
+      SSR-safe) or leave setting the attributes to the consumer.
 
 ## Tooling / cleanup
 
-- [ ] Add a **test runner** (Vitest and/or Playwright) and wire up the existing
-      `tsconfig/node.json` placeholders + a `pnpm test` script.
+- [ ] Wire up the **test runner** — Vitest 4 and `@storybook/addon-vitest` are
+      already installed as devDependencies: add a `pnpm test` script and a
+      Vitest config, register the addon in `.storybook/main.ts` and fill the
+      `tsconfig/node.json` placeholders. Consider Playwright for E2E later.
 - [ ] Remove `create-vue` scaffold leftovers: `index.html` + its missing
       `/src/main.ts` reference, and the unused cypress/playwright/nightwatch
       entries in `tsconfig/node.json`.

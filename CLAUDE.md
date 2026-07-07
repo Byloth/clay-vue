@@ -19,6 +19,11 @@ shipping components: prefer expressive, cutting-edge CSS over conservative code.
 
 See `TODO.md` for the concrete, planned implementations of the principles below.
 
+> **Keep the docs in sync.** `CLAUDE.md` and `TODO.md` must be updated as part
+> of every relevant change — new/removed dependencies, structural moves, changed
+> conventions, or a TODO item that lands or becomes obsolete. Updating these
+> files is part of the work itself, never a separate chore to defer.
+
 ## Core design principles
 
 These are non-negotiable and should guide every component. They are *why* the
@@ -62,14 +67,20 @@ code looks the way it does.
 
 - **Vue 3.5** — `<script setup lang="ts">`, Composition API only.
 - **TypeScript** — strict, `verbatimModuleSyntax` (always `import type` for types).
-- **Vite 7** — library build (`build.lib`), `vue` is external.
-- **Storybook 9** (`@storybook/vue3-vite`) — dev server + autodocs + a11y addon.
+- **Vite 8** — library build (`build.lib`), `vue` is external.
+- **Storybook 10** (`@storybook/vue3-vite`) — dev server + autodocs + a11y addon.
+- **@vueuse/core** — Vue composition utilities (runtime dependency).
+- **@fortawesome/fontawesome-free** — icons; styles are pulled in via
+  `assets/scss/vendors/_fontawesome.scss` and rendered through the internal
+  `FontAwesome.vue` component.
 - **SCSS** (Dart Sass) — modern module system (`@use` / `@forward`, not `@import`
   except the Google Fonts URL).
 - **pnpm** (10.x) — the package manager. Never use npm/yarn here.
 - **ESLint** via `@byloth/eslint-config-nuxt` + `eslint-plugin-storybook`.
-- No test runner yet — **tests are planned for the future** (likely Vitest /
-  Playwright; the `tsconfig/node.json` references are scaffold placeholders).
+- **Vitest 4** + `@storybook/addon-vitest` are installed as devDependencies but
+  **not wired up yet**: no `test` script, addon not registered in
+  `.storybook/main.ts`, `tsconfig/node.json` references still scaffold
+  placeholders. Wiring them up is planned — see `TODO.md`.
 
 ## Commands
 
@@ -92,19 +103,22 @@ blocks the Pages deploy on failure.
 src/
   index.ts                    # public entry — exports the STABLE public API only
   types.ts                    # shared types (ColorScheme, Interval, Timeout)
-  utils.ts                    # useTheme() composable (color scheme state)
   components/
     ClayButton.vue (+ .stories.ts)
     ClayCard.vue   (+ .stories.ts)
+    core/
+      FontAwesome.vue         # internal FA icon helper (no stories, not exported)
     inputs/
       ClayInput.vue    (+ .stories.ts)
       ClayTextarea.vue (+ .stories.ts)
   templates/                  # compositions/recipes (e.g. LoginForm) — demos
   assets/scss/
+    _functions.scss           # clay-outline() helper function
     _variables.scss           # SCSS source tokens (colors, easing, font)
     _mixins.scss              # clay-shadow-puff / clay-shadow-elevation
-    _index.scss               # @forward variables as clay-* + main
+    _index.scss               # @forward variables as clay-* + vendors + main
     main.scss                 # :root CSS custom properties + body base styles
+    vendors/                  # third-party styles (Font Awesome)
 ```
 
 ### Public API surface (`src/index.ts`)
@@ -171,12 +185,20 @@ hardcoding, e.g.:
 background-image: linear-gradient(rgba(from var(--white) r g b / 0.25), rgba(from var(--black) r g b / 0.125));
 ```
 
+`ClayButton` also picks its text color with `contrast-color()` against the
+background token. **Caveat:** the results with the current palette are not
+satisfying — the approach is under review (see `TODO.md`); don't spread it to
+other components until that's settled.
+
 ### The clay "look" recipe
 
 - **Layered box-shadows**: an outer elevation drop shadow + inner inset shadows
   for the puffy, pressed-clay depth. Use the mixins:
   - `clay-shadow-puff($color, $intensity)` — the soft inner depth.
-  - `clay-shadow-elevation($color, $intensity)` — the lift off the surface.
+  - `clay-shadow-elevation($color, $intensity, $outline)` — the lift off the
+    surface; the optional `$outline` prepends an outline ring to the shadow list.
+  - `clay-outline($color, $opacity, $width)` (in `_functions.scss`) — builds the
+    `box-shadow`-based outline ring value to pass as `$outline` above.
 - A **`::before` pseudo-element** absolutely positioned to fill the block, at
   `z-index: -1`, carrying inset shadows with `mix-blend-mode` (overlay /
   luminosity / multiply) for the material sheen.
@@ -196,11 +218,19 @@ When JS animation timing must match CSS, read it back from the computed style
 instead of duplicating the constant — see `ClayButton.vue`, which parses
 `--clay-ease-duration` in `onMounted` to size its press timer.
 
-### Dark mode (dual mechanism)
+### Dark mode
 
 1. `@media (prefers-color-scheme: dark)` blocks redefine tokens for system pref.
-2. `useTheme()` (`src/utils.ts`) lets the app force a scheme by toggling
-   `body[light]` / `body[dark]` attributes, which set `color-scheme`.
+2. `body[light]` / `body[dark]` attribute selectors in `main.scss` set
+   `color-scheme`, giving consumers a CSS hook to force a scheme. There is
+   currently **no JS driver** for these — the old `useTheme()` composable
+   (`src/utils.ts`) was removed with the Storybook 10 upgrade. Whether to ship
+   a replacement (e.g. `useColorMode` from `@vueuse/core`) is an open decision,
+   tracked in `TODO.md`.
+
+In development, theme switching is handled by Storybook's Theme toolbar, which
+sets `colorScheme` directly on `html` and the preview wrapper
+(`.storybook/preview.ts`).
 
 Every new component should provide a `@media (prefers-color-scheme: dark)` block
 overriding its `:root` tokens, mirroring the existing components.
@@ -209,12 +239,14 @@ overriding its `:root` tokens, mirroring the existing components.
 
 - One `*.stories.ts` per component, co-located.
 - `Meta`/`StoryObj` typed against a local `StoryArgs` interface.
-- `tags: ["autodocs"]`; rich `argTypes` with `name`, `description`, `table`
+- `tags: ["autodocs"]` — set globally in `.storybook/preview.ts` and still
+  declared per-story; rich `argTypes` with `name`, `description`, `table`
   (`category: "Component's"`, `defaultValue`, `type`) and `control`.
 - `title` mirrors the area: top-level components use the component name
   (`"ClayButton"`); templates use a path (`"Templates/LoginForm"`).
 - Stories use `render` with a `template` string and pass `args` through.
-- A global **Theme** toolbar (light/dark) is wired in `.storybook/preview.ts`.
+- A global **Theme** toolbar (light/dark) is wired in `.storybook/preview.ts`;
+  it switches schemes by setting `colorScheme` on `html` and the preview wrapper.
 
 ## Code style
 
