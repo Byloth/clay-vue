@@ -2,7 +2,7 @@
 
 Fluffy, friendly &amp; 3D: reusable Vue components based on the Claymorphism UI design style.
 
-> ⚠️ **Work in progress** — currently `1.0.0-dev.*`.
+> ⚠️ **Work in progress** — currently `0.1.0-dev.*`.
 > The stable public API only includes `ClayButton` and `ClayCard`, for now.
 
 ## Installation

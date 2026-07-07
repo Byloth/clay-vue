@@ -12,7 +12,7 @@ shipping components: prefer expressive, cutting-edge CSS over conservative code.
 
 - A reusable Vue 3 component collection styled with the Claymorphism aesthetic,
   meant to later power the author's personal website.
-- Distributed as a library (`dist/` + `types/`), but currently **`1.0.0-dev.*`**
+- Distributed as a library (`dist/` + `types/`), but currently **`0.1.0-dev.*`**
   and a work in progress.
 - Storybook is both the dev environment and the published documentation site
   (deployed to GitHub Pages on push to `master`).
