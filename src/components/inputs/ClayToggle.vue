@@ -70,155 +70,176 @@
 </template>
 
 <style lang="scss">
+    @use "@/assets/scss/layers";
     @use "@/assets/scss/mixins";
     @use "@/assets/scss/functions";
 
-    :root
+    @layer clay.theme
     {
-        --clay-toggle-color-off: oklch(from var(--clay-light-color) calc(l - 0.15) c h);
-        --clay-toggle-color-on: var(--clay-primary-color);
-        --clay-toggle-color-knob: var(--white);
-        --clay-toggle-color-knob-elevation: var(--black);
-        --clay-toggle-color-knob-shadow: oklch(from var(--clay-toggle-color-on) calc(l - 0.25) c h);
-        --clay-toggle-color-shadow: oklch(from var(--black) calc(l - 0.25) c h);
-        --clay-toggle-color-outline: oklch(from var(--clay-primary-color) l c calc(h + 180));
-
-        --clay-toggle-shadow: inset 0 0.25em 0.25em 0 rgba(from var(--clay-toggle-color-shadow) r g b / 0.125),
-                              inset 0 -0.25em 0.25em 0 rgba(from var(--white) r g b / 0.25);
-
-        --clay-toggle-width: 3.75em;
-        --clay-toggle-height: 2em;
-        --clay-toggle-knob-size: 1.5em;
-        --clay-toggle-knob-offset: 0.25em;
-    }
-
-    .clay-toggle
-    {
-        cursor: pointer;
-        display: inline-block;
-        height: var(--clay-toggle-height);
-        position: relative;
-        transition: transform var(--clay-ease-duration) var(--clay-ease-function);
-        width: var(--clay-toggle-width);
-
-        .clay-toggle__input
+        :root
         {
-            height: 0;
-            opacity: 0;
-            position: absolute;
-            width: 0;
+            --clay-toggle-color-off: oklch(from var(--clay-color-light) calc(l - 0.15) c h);
+            --clay-toggle-color-on: var(--clay-color-primary);
+            --clay-toggle-color-knob: #FFFFFF;
+            --clay-toggle-color-knob-elevation: #000000;
+            --clay-toggle-color-knob-shadow: oklch(from var(--clay-toggle-color-on) calc(l - 0.25) c h);
+            --clay-toggle-color-shadow: oklch(from #000000 calc(l - 0.25) c h);
+            --clay-toggle-color-outline: oklch(from var(--clay-color-primary) l c calc(h + 180));
+
+            --clay-toggle-shadow: inset 0 0.25em 0.25em 0 rgba(from var(--clay-toggle-color-shadow) r g b / 0.125),
+                                  inset 0 -0.25em 0.25em 0 rgba(from #FFFFFF r g b / 0.25);
+
+            --clay-toggle-scaling: 1.1;
+            --clay-toggle-translation: 0 -0.0625em;
+
+            --clay-toggle-width: 3.75em;
+            --clay-toggle-height: 2em;
+            --clay-toggle-knob-size: 1.5em;
+            --clay-toggle-knob-offset: 0.25em;
         }
 
-        .clay-toggle__slider
+        @media (prefers-color-scheme: dark)
         {
-            background-color: var(--clay-toggle-color-off);
-            border-radius: var(--clay-toggle-height);
-            box-shadow: var(--clay-toggle-shadow);
-            inset: 0;
-            position: absolute;
-            transition: background-color var(--clay-ease-duration) var(--clay-ease-function),
-                        box-shadow var(--clay-ease-duration) var(--clay-ease-function);
-
-            & > .clay-toggle__knob
+            :root
             {
-                --clay-toggle-color-knob-shadow: oklch(from var(--clay-toggle-color-knob) calc(l - 0.25) c h);
+                --clay-toggle-color-off: oklch(from var(--clay-color-dark) calc(l + 0.15) c h);
+                --clay-toggle-color-on: oklch(from var(--clay-color-primary) calc(l - 0.2) c h);
+                --clay-toggle-shadow: inset 0 0.25em 0.25em 0 rgba(from var(--clay-toggle-color-shadow) r g b / 0.125),
+                                      inset 0 -0.25em 0.25em 0 rgba(from #FFFFFF r g b / 0.075);
+                --clay-toggle-color-knob: oklch(from #FFFFFF calc(l - 0.125) c h);
+            }
+        }
+    }
 
-                @include mixins.clay-shadow-elevation($color: var(--clay-toggle-color-knob-elevation),
-                                                      $intensity: 0.125);
+    @layer clay.components
+    {
+        .clay-toggle
+        {
+            align-items: center;
+            cursor: pointer;
+            display: inline-flex;
+            height: var(--clay-toggle-height);
+            justify-content: flex-start;
+            position: relative;
+            padding-left: calc(var(--clay-toggle-width) + 0.5em);
+            transition: scale var(--clay-ease-duration) var(--clay-ease-function),
+                        translate var(--clay-ease-duration) var(--clay-ease-function);
+            width: var(--clay-toggle-width);
+            width:fit-content;
 
-                background-color: var(--clay-toggle-color-knob);
-                border-radius: 50%;
-                bottom: var(--clay-toggle-knob-offset);
-                content: "";
-                cursor: grab;
-                height: var(--clay-toggle-knob-size);
-                left: var(--clay-toggle-knob-offset);
+            .clay-toggle__input
+            {
+                height: 0;
+                opacity: 0;
                 position: absolute;
-                width: var(--clay-toggle-knob-size);
+                width: 0;
+            }
+
+            .clay-toggle__slider
+            {
+                background-color: var(--clay-toggle-color-off);
+                border-radius: var(--clay-toggle-height);
+                box-shadow: var(--clay-toggle-shadow);
+                inset: 0;
+                position: absolute;
                 transition: background-color var(--clay-ease-duration) var(--clay-ease-function),
-                            box-shadow var(--clay-ease-duration) var(--clay-ease-function),
-                            transform var(--clay-ease-duration) var(--clay-ease-function);
+                            box-shadow var(--clay-ease-duration) var(--clay-ease-function);
+                width: var(--clay-toggle-width);
 
-                &::before
+                & > .clay-toggle__knob
                 {
-                    @include mixins.clay-shadow-puff($intensity: 0.5);
+                    --clay-toggle-color-knob-shadow: oklch(from var(--clay-toggle-color-knob) calc(l - 0.25) c h);
 
+                    @include mixins.clay-shadow-elevation($color: var(--clay-toggle-color-knob-elevation),
+                                                          $intensity: 0.125);
+
+                    background-color: var(--clay-toggle-color-knob);
                     border-radius: 50%;
+                    bottom: var(--clay-toggle-knob-offset);
                     content: "";
-                    mix-blend-mode: luminosity;
+                    cursor: grab;
+                    height: var(--clay-toggle-knob-size);
+                    left: var(--clay-toggle-knob-offset);
                     position: absolute;
-                    inset: 0;}
+                    width: var(--clay-toggle-knob-size);
+                    transition: background-color var(--clay-ease-duration) var(--clay-ease-function),
+                                box-shadow var(--clay-ease-duration) var(--clay-ease-function),
+                                translate var(--clay-ease-duration) var(--clay-ease-function);
 
-                &:active
-                {
-                    cursor: grabbing;
+                    &::before
+                    {
+                        @include mixins.clay-shadow-puff($intensity: 0.5);
+
+                        border-radius: 50%;
+                        content: "";
+                        mix-blend-mode: luminosity;
+                        position: absolute;
+                        inset: 0;
+                    }
+
+                    &:active
+                    {
+                        cursor: grabbing;
+                    }
                 }
             }
-        }
 
-        .clay-toggle__input:checked + .clay-toggle__slider
-        {
-            background-color: var(--clay-toggle-color-on);
-
-            & > .clay-toggle__knob
+            .clay-toggle__input:checked + .clay-toggle__slider
             {
-                transform: translateX( calc(
-                                        var(--clay-toggle-width) -
-                                        var(--clay-toggle-knob-size) - 2 *
-                                        var(--clay-toggle-knob-offset))
-                );
+                background-color: var(--clay-toggle-color-on);
+
+                & > .clay-toggle__knob
+                {
+                    translate: calc(
+                                var(--clay-toggle-width) -
+                                var(--clay-toggle-knob-size) - 2 *
+                                var(--clay-toggle-knob-offset));
+                }
+            }
+
+            .clay-toggle__input:focus-visible + .clay-toggle__slider
+            {
+                box-shadow: var(--clay-toggle-shadow),
+                functions.clay-outline($color: var(--clay-toggle-color-outline),
+                                       $width: 0.2em);
+            }
+
+            &:hover .clay-toggle__slider > .clay-toggle__knob
+            {
+                @include mixins.clay-shadow-elevation($color: var(--clay-toggle-color-knob-elevation),
+                                                      $intensity: 0.35);
             }
         }
 
-        .clay-toggle__input:focus-visible + .clay-toggle__slider
-        {
-            box-shadow: var(--clay-toggle-shadow),
-            functions.clay-outline($color: var(--clay-toggle-color-outline),
-                                   $width: 0.2em);
-        }
-
-        &:hover .clay-toggle__slider > .clay-toggle__knob
-        {
-            @include mixins.clay-shadow-elevation($color: var(--clay-toggle-color-knob-elevation), $intensity: 0.35);
-        }
-    }
-
-    &:focus-visible
+        &:focus-visible
         {
             box-shadow: functions.clay-outline($color: var(--clay-toggle-color-outline),
                                                $width: 0.15em),
                 0 0.25em 0.25em 0 rgba(from var(--clay-toggle-color-shadow) r g b / 0.333);
 
-            transform: translateY(-0.0625em) scale(1.1);
+            scale: var(--clay-toggle-scaling);
+            translate: var(--clay-toggle-translation);
         }
 
-    @media (prefers-color-scheme: dark)
-    {
-        :root
+        @media (prefers-color-scheme: dark)
         {
-            --clay-toggle-color-off: oklch(from var(--clay-dark-color) calc(l + 0.15) c h);
-            --clay-toggle-color-on: oklch(from var(--clay-primary-color) calc(l - 0.2) c h);
-            --clay-toggle-shadow: inset 0 0.25em 0.25em 0 rgba(from var(--clay-toggle-color-shadow) r g b / 0.125),
-                                  inset 0 -0.25em 0.25em 0 rgba(from var(--white) r g b / 0.075);
-            --clay-toggle-color-knob: oklch(from var(--white) calc(l - 0.125) c h);
-        }
+            .clay-toggle .clay-toggle__input:checked + .clay-toggle__slider > .clay-toggle__knob
+            {
+                --clay-toggle-color-knob: #FFFFFF;
+                --clay-toggle-color-knob-elevation: #FFFFFF;
 
-        .clay-toggle .clay-toggle__input:checked + .clay-toggle__slider > .clay-toggle__knob
-        {
-            --clay-toggle-color-knob: var(--white);
-            --clay-toggle-color-knob-elevation: var(--white);
+                box-shadow: 0 0 0.375em 0 rgba(from var(--clay-toggle-color-knob-elevation) r g b / 0.25);
+            }
 
-            box-shadow: 0 0 0.375em 0 rgba(from var(--clay-toggle-color-knob-elevation) r g b / 0.25);
-        }
+            .clay-toggle:hover .clay-toggle__input:checked + .clay-toggle__slider > .clay-toggle__knob
+            {
+                box-shadow: 0 0 0.375em 0 rgba(from var(--clay-toggle-color-knob-elevation) r g b / 0.5);
+            }
 
-        .clay-toggle:hover .clay-toggle__input:checked + .clay-toggle__slider > .clay-toggle__knob
-        {
-            box-shadow: 0 0 0.375em 0 rgba(from var(--clay-toggle-color-knob-elevation) r g b / 0.5);
-        }
-
-        .clay-toggle .clay-toggle__input:checked + .clay-toggle__slider > .clay-toggle__knob::before
-        {
-            // @include mixins.clay-shadow-puff($intensity: 0.75);
+            .clay-toggle .clay-toggle__input:checked + .clay-toggle__slider > .clay-toggle__knob::before
+            {
+                // @include mixins.clay-shadow-puff($intensity: 0.75);
+            }
         }
     }
 </style>
